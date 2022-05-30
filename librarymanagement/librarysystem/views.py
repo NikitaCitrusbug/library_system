@@ -245,11 +245,11 @@ class IssueBookRetrieve(ListView):
     # queryset = Post.objects.all()
     # serializer_class = PostSerializer
 
-    def get(self ,request , pk):
-        context = {}
-        context['name'] = IssuedBooks.objects.get(book= pk)
+    # def get(self ,request , pk):
+    #     context = {}
+    #     context['name'] = IssuedBooks.objects.get(book= pk)
             
-        return render(request , self.template_name , context)
+    #     return render(request , self.template_name , context)
 
 class IssueBookDetail(DetailView):
     model = IssuedBooks

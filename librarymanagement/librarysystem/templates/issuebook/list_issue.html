@@ -3,14 +3,7 @@
 <h1>IssueBook list page</h1>
 {% for IssueBook in object_list %}
 <ul>
-  <li>
-    <a href="{% url 'issuebookdetail' IssueBook.pk %}"> book </a> : {{book.name}}    
-      
-
-    <!-- {% for name in IssueBook.book.all %}<br>
-    {{name}}
-    {% endfor %} -->
-  </li>
+  
   <li>
     <a href="{% url 'issuebookdetail' IssueBook.pk %}"> user_name </a> : {{IssueBook.user_name}} 
   </li>

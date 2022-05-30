@@ -4,7 +4,7 @@ from tkinter import Widget
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import Author, Category, User , Book , IssuedBooks
-
+from django.forms import CharField, TextInput
 
 
 
@@ -13,7 +13,7 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
         fields = ['username', 'first_name', 'last_name','email']
-
+    
     def save(self,commit=True):
         user = super().save(commit=False)
         user.is_librarian = True
@@ -89,18 +89,41 @@ class UpdateAuthorForm(forms.ModelForm):
         model = Author
         fields = '__all__'
 
-class DateInput(forms.DateInput):
-    input_type = 'date'
+# class DateInput(forms.DateInput):
+#     input_type = 'date'
 
+# class IssuedBooksForm(forms.ModelForm):
+#     class Meta:
+#         model = IssuedBooks
+#         fields = '__all__'
+#     widgets = {
+#         'return_date' : DateInput(),
+#         'issued_date': DateInput(),
+#         'issued_date' : forms.HiddenInput(),
+
+#     }
 class IssuedBooksForm(forms.ModelForm):
-    class Meta:
+    
+    return_date = forms.DateField(
+        widget=forms.DateInput(format='%d/%m/%Y'),
+        input_formats=['%d/%m/%Y']
+    )
+    
+    charge_per_day = CharField( widget=TextInput(attrs={'type': 'number'}))
+    class Meta():
+    
         model = IssuedBooks
         fields = '__all__'
-    widgets = {
-        'issued_date': DateInput(),
-        'issued_date' : forms.HiddenInput(),
-        'return_date' : DateInput(),
-    }
+        def __str__(self):
+            return self.name
+        def save(self, *args, **kwargs):
+            self.user_name = self.user_name.book()
+            if self.return_date != None:
+                days = self.return_date - self.issued_date
+                self.total_charge = days.days * self.charge_per_day
+            return super(IssuedBooks, self).save(*args, **kwargs)
+
+
 class UpdateIssueBookForm(forms.ModelForm):
     class Meta:
         model = IssuedBooks
