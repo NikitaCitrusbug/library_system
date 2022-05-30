@@ -1,0 +1,13 @@
+{% extends 'base2.html' %} {% load static %} {% block content %}
+
+<h1>Author Details</h1>
+<ul>
+  <li>{{object}}</li>
+  name : {{object.name}}<br>
+  discription : {{object.discription}}<br>
+  book : {% for bk in book %}<br />
+    {{bk}} 
+    {% endfor %}<br>
+  
+</ul>
+{% endblock content %}

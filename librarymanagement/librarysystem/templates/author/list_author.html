@@ -1,0 +1,24 @@
+{% extends 'base2.html' %} {% load static %} {% block content %}
+<h1>Author list page</h1>
+<form action="{% url 'author_search' %}" class="form-inline" method ="get">
+  <input name = "search" type="search" placeholder="search" aria-label="search">
+  <button class="btn btn-success" type="submit">Search</button>
+</form>
+{% for Author in object_list %}
+<ul>
+  <li>
+    <a href="{% url 'authordetail' Author.pk %}"> name </a> : {{Author.name}}
+  </li>
+  <li>
+    book : {% for auth in Author.book.all %}<br />
+    {{auth}} {% endfor %}
+  </li>
+
+  <button type="button" class="btn btn-info">
+    <a href="{% url 'authorupdate' Author.pk %}">Update</a>
+  </button>
+  <button type="button" class="btn btn-danger">
+    <a href="{% url 'authordelete' Author.pk %}">Delete</a>
+  </button>
+</ul>
+{% endfor %} {% endblock content %}

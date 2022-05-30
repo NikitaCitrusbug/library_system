@@ -1,0 +1,16 @@
+<title>IssueBook</title>
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<h1>IssueBook Details</h1>
+<ul>
+  <li>{{object}}</li>
+  book : {{object.book}}<br>
+  user_name : {{object.user_name}}<br>
+  user_email : {{object.user_email}}<br>
+  user_address : {{object.user_address}}<br>
+  issued_date : {{object.issued_date}}<br>
+  return_date : {{object.return_date}}<br>
+  charge_per_day : {{object.charge_per_day}}<br>
+  total_charge : {{object.total_charge}}<br>
+</ul>
+{% endblock content %}

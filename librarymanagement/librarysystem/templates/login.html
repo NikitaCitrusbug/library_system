@@ -1,0 +1,41 @@
+<title>Login</title>
+
+{% extends 'base1.html' %} {% load static %} {% block content %}
+
+<div class="container" style="background-color: rgb(180, 171, 171)">
+  <br />
+  <center><h1>Login Form</h1></center>
+  <form method="POST" style="font-size: 20px">
+    {% csrf_token %}
+    <center>
+      <br />
+      <div>user name : {{ form.username }}</div>
+      <br />
+
+      <div>password : {{form.password}}</div>
+      <br />
+
+      <button
+        class="btn btn-success"
+        style="background-color: green; color: white; margin: 20px"
+        
+      >
+        Login
+      </button>
+      <br />
+      <div>
+        <h3>Not a member???</h3>
+      </div>
+      <br />
+      <div>
+        <a href="http://127.0.0.1:8000/Usersignup" class="btn btn-secondary"
+          >Signup now</a
+        >
+      </div>
+      <br />
+    </center>
+  </form>
+</div>
+{% endblock content %}
+
+

@@ -1,0 +1,20 @@
+{% extends 'base2.html' %} {% load static %} {% block content %}
+<h1>Category list page</h1>
+<form action="{% url 'category_search' %}" class="form-inline" method ="get">
+  <input name ="search" type="search" placeholder="search" aria-label="search">
+  <button class="btn btn-success" type="submit">Search</button>
+</form>
+{% for Category in object_list %}
+<ul>
+  <li>
+    <a href="{% url 'categorydetail' Category.pk %}"> name </a> : {{ Category.name }}
+  </li>
+
+  <button type="button" class="btn btn-info">
+    <a href="{% url 'categoryupdate' Category.pk %}">Update</a>
+  </button>
+  <button type="button" class="btn btn-danger">
+    <a href="{% url 'categorydelete' Category.pk %}">Delete</a>
+  </button>
+</ul>
+{% endfor %} {% endblock content %}

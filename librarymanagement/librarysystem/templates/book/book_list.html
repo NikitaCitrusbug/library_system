@@ -1,0 +1,18 @@
+{% extends 'base2.html' %} {% load static %} {% block content %}
+<h1>Book list page</h1>
+<form action="{% url 'book_search' %}" class="form-inline" method ="get">
+  <input name = "search" type="search" placeholder="search" aria-label="search">
+  <button class="btn btn-success" type="submit">Search</button>
+  
+</form>
+{% for Book in object_list %}
+<ul>
+  <li> <a href="{% url 'bookdetail' Book.pk %}"> name </a> : {{ Book.name }}</li>
+  <li>category : {{ Book.category }}</li>
+  <button type="button" class="btn btn-info" ><a href="{% url 'bookupdate' Book.pk %}">Update</a></button>
+  <button type="button" class="btn btn-danger" ><a href="{% url 'bookdelete' Book.pk %}">Delete</a></button>
+</ul>
+
+{% endfor %}
+
+{% endblock content %}

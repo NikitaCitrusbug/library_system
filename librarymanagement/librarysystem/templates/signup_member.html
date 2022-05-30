@@ -1,0 +1,36 @@
+<title>User Signup</title>
+
+{% extends 'base1.html' %} {% load static %} {% block content %}
+    <div class="container" style="background-color: rgb(180, 171, 171) ;">
+        <br>
+        <center><h1>Registration Form For User</h1></center>
+      <form method="POST" style="font-size: 20px ;">
+        {% csrf_token %}
+        <center>
+            <br>
+          <div>user name : {{ form.username }}</div>
+          <br />
+          
+          <div>first name : {{ form.first_name }}</div>
+          <br />
+          <div>last name : {{form.last_name}}</div>
+          <br />
+          <div>email : {{form.email}}</div>
+          <br />
+          <div>password : {{form.password1}}</div>
+          <br />
+          <div>confirm password : {{form.password2}}</div>
+          <br />
+          
+          <button class= "btn btn-success" style="background-color: green; color: white; margin: 20px">
+            Register
+          </button>
+          <div>
+            <h3>Already Have an account?</h3>
+            <a href="http://127.0.0.1:8000/Login/" class="btn btn-secondary">Signin</a>
+          </div>
+          <br>
+        </center>
+      </form>
+    </div>
+    {% endblock content %}
