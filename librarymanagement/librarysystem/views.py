@@ -40,11 +40,10 @@ class Dashboard(View):
         return render(request, self.template_name)
 
 
-class BookView(View):
+class BookView(ListView):
+    model = Book
     template_name = 'book/book.html'
 
-    def get(self, request):
-        return render(request, self.template_name)
 
 class BookRetrieve(ListView):
     model = Book
@@ -113,11 +112,10 @@ class BookDelete(DeleteView):
     success_url = "/Dashboard1/"
 
 
-class CategoryView(View):
+class CategoryView(ListView):
+    model = Category
     template_name = 'category/Category.html'
 
-    def get(self, request):
-        return render(request, self.template_name)
 
 class CategoryRetrieve(ListView):
     model = Category
@@ -161,11 +159,10 @@ class CategoryDelete(DeleteView):
     template_name = 'category/delete_category.html'
     success_url = "/Dashboard1/"
 
-class AuthorView(View):
+class AuthorView(ListView):
+    model = Author
     template_name = 'author/author.html'
 
-    def get(self, request):
-        return render(request, self.template_name)
 
 
 class AuthorRetrieve(ListView):

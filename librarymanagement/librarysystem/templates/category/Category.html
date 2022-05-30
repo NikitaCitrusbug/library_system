@@ -1,26 +1,16 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends 'base.html' %} {% load static %} {% block content %}
+<h1>Category list page</h1>
+<form action="{% url 'category_search' %}" class="form-inline" method ="get">
+  <input name ="search" type="search" placeholder="search" aria-label="search">
+  <button class="btn btn-success" type="submit">Search</button>
+</form>
+{% for Category in object_list %}
+<ul>
+  <li>
+    <a href="{% url 'categorydetail' Category.pk %}"> name </a> : {{ Category.name }}
+  </li>
+</ul>
+{% endfor %}
 
-{% block content %}
-<div class="col-sm-10">
-    <h3 class="text-white my-5">Category</h3>
-    <form>
-        <div class="form-row">
-            
-            <div class="form-group">
-                <label for="text">Choose the book category</label>
-                <select id="book" name="book" class="form-control">
-                    <option  disabled selected>Books</option>
-                    <option>Novel</option>
-                    <option>Science</option>
-                    <option>Biography</option>
-                    <option>Thriller</option>
-                  </select>
-
-            </div>
-            <button type="search" class="btn btn-primary" id = "btn">Search</button>
-        </div>
-    </form>
-</div>
 
 {% endblock content %}

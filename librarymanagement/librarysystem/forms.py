@@ -115,7 +115,7 @@ class IssuedBooksForm(forms.ModelForm):
         model = IssuedBooks
         fields = '__all__'
         def __str__(self):
-            return self.name
+            return self.user_name
         def save(self, *args, **kwargs):
             self.user_name = self.user_name.book()
             if self.return_date != None:
