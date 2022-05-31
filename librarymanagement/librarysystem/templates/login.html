@@ -2,23 +2,55 @@
 
 {% extends 'base1.html' %} {% load static %} {% block content %}
 
+<script type="text/javascript">
+  
+  function seterror(id, error) {
+      element = document.getElementById(id);
+      element.getElementsByClassName('formerror')[0].innerHTML = error;
+  
+  }
+  function validate() {
+      var returnval = true;
+      var id_username = document.forms['login']['username'].value;
+      var regName = /^[a-zA-Z\-]+$/;
+      if (id_username == "" || !regName.test(id_username)) {
+          alert("Please enter your name properly.");
+          returnval = false;
+      }
+      var id_password = document.forms['login']['password'].value;
+      var regPassword =  /^[A-Za-z0-9]\w{7,14}$/
+      if (id_password == "" || !regPassword.test(id_password)) {
+          alert("Length of password between 8 to 14 and should be use alphabatic letter and contains number between 0-9");
+          returnval = false;
+      }
+      return returnval;
+  
+  }
+  
+  </script>
+  
+
 <div class="container" style="background-color: rgb(180, 171, 171)">
   <br />
   <center><h1>Login Form</h1></center>
-  <form method="POST" style="font-size: 20px">
+  <form method="POST" style="font-size: 20px" name="login">
     {% csrf_token %}
     <center>
       <br />
-      <div>user name : {{ form.username }}</div>
+      <div>user name : {{ form.username }}
+        <span class="formerror"></span>
+      </div>
       <br />
 
-      <div>password : {{form.password}}</div>
+      <div>password : {{form.password}}
+        <span class="formerror"></span>
+      </div>
       <br />
 
       <button
         class="btn btn-success"
         style="background-color: green; color: white; margin: 20px"
-        
+        onclick="return validate()"
       >
         Login
       </button>
