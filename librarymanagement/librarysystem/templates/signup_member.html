@@ -1,28 +1,88 @@
 <title>User Signup</title>
 
 {% extends 'base1.html' %} {% load static %} {% block content %}
+<script type="text/javascript">
+  
+  function seterror(id, error) {
+      element = document.getElementById(id);
+      element.getElementsByClassName('formerror')[0].innerHTML = error;
+  
+  }
+  function validate() {
+      var returnval = true;
+      var id_username = document.forms['signupmember']['username'].value;
+      var regName = /^[a-zA-Z\-]+$/;
+      if (id_username == "" || !regName.test(id_username)) {
+          alert("Please enter your name properly.");
+          returnval = false;
+      }
+      var id_first_name = document.forms['signupmember']['first_name'].value;
+      if (id_first_name.length < 3) {
+          alert("minimum length required is 4");
+          returnval = false;
+      }
+      var id_last_name = document.forms['signupmember']['last_name'].value;
+      if (id_last_name.length < 4) {
+          alert("minimum length required is 5");
+          returnval = false;
+      }
+      var id_email = document.forms['signupmember']['email'].value;
+      var regEmail=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g;
+      if (id_email == "" || !regEmail.test(id_email)) {
+          alert("please enter a valid email address!!! eg.: example@gmail.com");
+          returnval = false;
+      }
+      var id_password1 = document.forms['signupmember']['password1'].value;
+      var regPassword =  /^[A-Za-z0-9]\w{7,14}$/
+      if (id_password1 == "" || !regPassword.test(id_password1)) {
+          alert("Length of password between 8 to 14 and should be use alphabatic letter and contains number between 0-9");
+          returnval = false;
+      }
+      var id_password2 = document.forms['signupmember']['password2'].value;
+      if (id_password2 != id_password1) {
+          alert("Confirm Password should be same as Password");
+          returnval = false;
+      }
+      return returnval;
+  
+  }
+  
+  </script>
     <div class="container" style="background-color: rgb(180, 171, 171) ;">
         <br>
         <center><h1>Registration Form For User</h1></center>
-      <form method="POST" style="font-size: 20px ;">
+      <form method="POST" style="font-size: 20px" name="signupmember">
         {% csrf_token %}
         <center>
             <br>
-          <div>user name : {{ form.username }}</div>
+          <div>user name : {{ form.username }}
+            <span class="formerror"></span>
+          </div>
+
           <br />
           
-          <div>first name : {{ form.first_name }}</div>
+          <div>first name : {{ form.first_name }}
+            <span class="formerror"></span>
+          </div>
           <br />
-          <div>last name : {{form.last_name}}</div>
+          <div>last name : {{form.last_name}}
+            <span class="formerror"></span>
+          </div>
           <br />
-          <div>email : {{form.email}}</div>
+          <div>email : {{form.email}}
+            <span class="formerror"></span>
+          </div>
           <br />
-          <div>password : {{form.password1}}</div>
+          <div>password : {{form.password1}}
+            <span class="formerror"></span>
+          </div>
           <br />
-          <div>confirm password : {{form.password2}}</div>
+          <div>confirm password : {{form.password2}}
+            <span class="formerror"></span>
+          </div>
           <br />
           
-          <button class= "btn btn-success" style="background-color: green; color: white; margin: 20px">
+          <button class= "btn btn-success" onclick="return validate()" style="background-color: green; color: white; margin: 20px">
             Register
           </button>
           <div>

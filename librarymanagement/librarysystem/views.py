@@ -226,6 +226,14 @@ class AddIssue(CreateView):
     model = IssuedBooks
     form_class = IssuedBooksForm
     template_name = 'issuebook/issue.html'
+
+    # def get(self ,request , pk):
+    #         context = {}
+    #         context['charges'] = IssuedBooks.objects.get(id = pk)
+           
+            
+    #         return render(request , self.template_name , context)
+    
     def post(self, request):
         form = self.form_class(request.POST)
         if form.is_valid():
@@ -255,8 +263,6 @@ class IssueBookDetail(DetailView):
     def get(self ,request , pk):
             context = {}
             context['object'] = IssuedBooks.objects.get(id = pk)
-            
-            
             return render(request , self.template_name , context)
 
 class IssueBookUpdate(UpdateView):

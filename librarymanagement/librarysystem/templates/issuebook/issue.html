@@ -5,7 +5,9 @@
     {% csrf_token %}
     <div class="form-row">
       <div class="form-group">{{form.as_p}}</div>
-
+      <div>
+        total_charge : Total_charge
+      </div>      
       <button type="submit" class="btn btn-primary" id="btn">Send</button>
     </div>
   </form>

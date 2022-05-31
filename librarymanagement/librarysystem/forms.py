@@ -113,15 +113,8 @@ class IssuedBooksForm(forms.ModelForm):
     class Meta():
     
         model = IssuedBooks
-        fields = '__all__'
-        def __str__(self):
-            return self.user_name
-        def save(self, *args, **kwargs):
-            self.user_name = self.user_name.book()
-            if self.return_date != None:
-                days = self.return_date - self.issued_date
-                self.total_charge = days.days * self.charge_per_day
-            return super(IssuedBooks, self).save(*args, **kwargs)
+        fields = ['book' , 'user_name','user_email' , 'user_address' , 'return_date' , 'charge_per_day']
+       
 
 
 class UpdateIssueBookForm(forms.ModelForm):
