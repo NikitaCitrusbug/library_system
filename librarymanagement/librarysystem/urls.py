@@ -1,7 +1,7 @@
 from django.urls import path,include
 from django.views.generic import TemplateView
 from . import views
-from .views import  AddAuthor, BookRetrieve, Home , SignupAdmin , SignupMember , Login , Dashboard , CategoryView, BookView, AddIssue, AuthorView , Contact,AddBook , AddCategory , AddAuthor , AuthorRetrieve , CategoryRetrieve , IssueBookRetrieve , SearchAuthor
+from .views import  AddAuthor, BookRetrieve, Home , SignupAdmin , SignupMember , Login , Dashboard , CategoryView, BookView, AddIssue, AuthorView ,AddBook , AddCategory , AddAuthor , AuthorRetrieve , CategoryRetrieve , IssueBookRetrieve , SearchAuthor
 from .models import *
 from django import forms 
 
@@ -15,7 +15,7 @@ urlpatterns = [
     
     path('Issuedbook/',AddIssue.as_view() , name = "issuedbook"),
     path('Author/',AuthorView.as_view() , name = "author"),
-    path('ContactUs',Contact.as_view() , name = "contactus"),
+    # path('ContactUs',Contact.as_view() , name = "contactus"),
     path('Book/',BookView.as_view() , name = "book"),
     path('Category/',CategoryView.as_view() , name = "category"),
 
@@ -57,6 +57,7 @@ urlpatterns = [
     
     path('Dashboard1/' ,views.dashboard1, name = 'dashboard1'),
     path('Logout/',views.logout, name = 'logout'),
+    # path('ContactUs/',views.contact, name = 'contactus'),
     
     
 ]

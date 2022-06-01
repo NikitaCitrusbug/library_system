@@ -25,6 +25,8 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView
 from django.views.generic.edit import DeleteView
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class Home(View):
     template_name = 'home.html'
@@ -33,27 +35,36 @@ class Home(View):
         return render(request, self.template_name)
 
 
-class Dashboard(View):
+class Dashboard(LoginRequiredMixin ,View):
     template_name = 'dashboard.html'
-
+    login_url = '/'
+    redirect_field_name = 'home'
     def get(self, request):
         return render(request, self.template_name)
 
 
-class BookView(ListView):
+class BookView(LoginRequiredMixin ,ListView):
     model = Book
     template_name = 'book/book.html'
+    login_url = '/'
+    redirect_field_name = 'home'
 
 
-class BookRetrieve(ListView):
+class BookRetrieve(LoginRequiredMixin ,ListView):
     model = Book
     template_name = 'book/book_list.html'
+    login_url = '/'
+    redirect_field_name = 'home'
+    
+    
     
 
-class AddBook(CreateView):
+class AddBook(LoginRequiredMixin , CreateView):
     model = Book
     form_class = AddForm
     template_name = 'book/add_book.html'
+    login_url = '/'
+    redirect_field_name = 'home'
 
     def post(self, request):
         data = request.POST.copy()
@@ -74,9 +85,11 @@ class AddBook(CreateView):
         else:
             return HttpResponse('error')
 
-class BookDetail(DetailView):
+class BookDetail(LoginRequiredMixin ,DetailView):
     model = Book
     template_name = 'book/details_book.html'
+    login_url = '/'
+    redirect_field_name = 'home'
    
     def get(self ,request , pk):
             context = {}
@@ -89,10 +102,12 @@ class BookDetail(DetailView):
 
 
 
-class BookUpdate(UpdateView):
+class BookUpdate(LoginRequiredMixin ,UpdateView):
     model = Book
     form_class = UpdateBookForm
     template_name = 'book/update_book.html'
+    login_url = '/'
+    redirect_field_name = 'home'
 
     def get_success_url(self):
         return reverse('home')
@@ -106,30 +121,40 @@ class BookUpdate(UpdateView):
     #         return HttpResponse('error')
 
 
-class BookDelete(DeleteView):
+class BookDelete(LoginRequiredMixin ,DeleteView):
     model = Book
     template_name = 'book/delete_book.html'
     success_url = "/Dashboard1/"
+    login_url = '/'
+    redirect_field_name = 'home'
 
 
-class CategoryView(ListView):
+class CategoryView(LoginRequiredMixin ,ListView):
     model = Category
     template_name = 'category/Category.html'
+    login_url = '/'
+    redirect_field_name = 'home'
 
 
-class CategoryRetrieve(ListView):
+class CategoryRetrieve(LoginRequiredMixin ,ListView):
     model = Category
     template_name = 'category/list_category.html'
+    login_url = '/'
+    redirect_field_name = 'home'
 
-class CategoryDetail(DetailView):
+class CategoryDetail(LoginRequiredMixin ,DetailView):
     model = Category
     template_name = 'category/details_category.html'
+    login_url = '/'
+    redirect_field_name = 'home'
 
-class AddCategory(CreateView):
+class AddCategory(LoginRequiredMixin ,CreateView):
     model = Category
     form_class = AddCategoryForm
     template_name = 'category/add_category.html'
-
+    login_url = '/'
+    redirect_field_name = 'home'
+   
     def post(self, request):
         form = self.form_class(request.POST)
         if form.is_valid():
@@ -139,11 +164,13 @@ class AddCategory(CreateView):
             return HttpResponse('error')
 
 
-class CategoryUpdate(UpdateView):
+class CategoryUpdate(LoginRequiredMixin ,UpdateView):
     model = Category
     form_class = UpdateCategoryForm
     template_name = 'category/update_category.html'
-    
+    login_url = '/'
+    redirect_field_name = 'home'
+
     def get_success_url(self):
         return reverse('home')
     # def post(self , request , pk):
@@ -154,25 +181,33 @@ class CategoryUpdate(UpdateView):
     #     else:
     #         return HttpResponse('error')
 
-class CategoryDelete(DeleteView):
+class CategoryDelete(LoginRequiredMixin ,DeleteView):
     model = Category
     template_name = 'category/delete_category.html'
     success_url = "/Dashboard1/"
+    login_url = '/'
+    redirect_field_name = 'home'
 
-class AuthorView(ListView):
+class AuthorView(LoginRequiredMixin ,ListView):
     model = Author
     template_name = 'author/author.html'
+    login_url = '/'
+    redirect_field_name = 'home'
 
 
 
-class AuthorRetrieve(ListView):
+class AuthorRetrieve(LoginRequiredMixin ,ListView):
     model = Author
     template_name = 'author/list_author.html'
+    login_url = '/'
+    redirect_field_name = 'home'
 
 
-class AuthorDetail(DetailView):
+class AuthorDetail(LoginRequiredMixin ,DetailView):
     model = Author
     template_name = 'author/details_author.html'
+    login_url = '/'
+    redirect_field_name = 'home'
 
     
     def get(self ,request , pk):
@@ -183,10 +218,12 @@ class AuthorDetail(DetailView):
             return render(request , self.template_name , context)
     
 
-class AddAuthor(CreateView):
+class AddAuthor(LoginRequiredMixin ,CreateView):
     model = Author
     form_class = AddAuthorForm
     template_name = 'author/add_author.html'
+    login_url = '/'
+    redirect_field_name = 'home'
 
     def post(self, request):
         form = self.form_class(request.POST)
@@ -198,11 +235,13 @@ class AddAuthor(CreateView):
 
 
 
-class AuthorUpdate(UpdateView):
+class AuthorUpdate(LoginRequiredMixin ,UpdateView):
     model = Author
     form_class = UpdateAuthorForm
     template_name = 'author/update_author.html'
-    
+    login_url = '/'
+    redirect_field_name = 'home'
+
     def get_success_url(self):
         return reverse('home')
 
@@ -216,16 +255,20 @@ class AuthorUpdate(UpdateView):
 
 
 
-class AuthorDelete(DeleteView):
+class AuthorDelete(LoginRequiredMixin ,DeleteView):
     model = Author
     template_name = 'author/delete_author.html'
     success_url = "/Dashboard1/"
+    login_url = '/'
+    redirect_field_name = 'home'
 
 
-class AddIssue(CreateView):
+class AddIssue(LoginRequiredMixin ,CreateView):
     model = IssuedBooks
     form_class = IssuedBooksForm
     template_name = 'issuebook/issue.html'
+    login_url = '/'
+    redirect_field_name = 'home'
 
     # def get(self ,request , pk):
     #         context = {}
@@ -242,9 +285,11 @@ class AddIssue(CreateView):
         else:
             return HttpResponse('error')
 
-class IssueBookRetrieve(ListView):
+class IssueBookRetrieve(LoginRequiredMixin ,ListView):
     model = IssuedBooks
     template_name = 'issuebook/list_issue.html'
+    login_url = '/'
+    redirect_field_name = 'home'
 
     # permission_classes = [isAuthenticated]
     # queryset = Post.objects.all()
@@ -256,54 +301,63 @@ class IssueBookRetrieve(ListView):
             
     #     return render(request , self.template_name , context)
 
-class IssueBookDetail(DetailView):
+class IssueBookDetail(LoginRequiredMixin ,DetailView):
     model = IssuedBooks
     template_name = 'issuebook/details_issue.html'
+    login_url = '/'
+    redirect_field_name = 'home'
 
     def get(self ,request , pk):
             context = {}
             context['object'] = IssuedBooks.objects.get(id = pk)
             return render(request , self.template_name , context)
 
-class IssueBookUpdate(UpdateView):
+class IssueBookUpdate(LoginRequiredMixin ,UpdateView):
     model = IssuedBooks
     form_class = UpdateIssueBookForm
     template_name = 'issuebook/update_issue.html'
+    login_url = '/'
+    redirect_field_name = 'home'
     
     def get_success_url(self):
         return reverse('home')
 
-class IssueBookDelete(DeleteView):
+class IssueBookDelete(LoginRequiredMixin ,DeleteView):
     model = IssuedBooks
     template_name = 'issuebook/delete_issue.html'
     success_url = "/Dashboard/"
+    login_url = '/'
+    redirect_field_name = 'home'
 
-class Contact(View):
-    template_name = 'contact.html'
-
-    def get(self, request):
-        return render(request, self.template_name)
+# class Contact(View):
+#     template_name = 'contact.html'
+    
+# def contact(request):
+#     return render(request, 'contact.html')
 
 
 def logout(request):
     return HttpResponseRedirect('/')
 
-
+@login_required(login_url="/")
 def dashboard1(request):
     return render(request, 'dashboard1.html')
 
 
 class SignupAdmin(CreateView):
-    model = AbstractUser
+    model = User
     form_class = CustomUserCreationForm
     template_name = 'signup_admin.html'
+    
 
     def post(self, request):
+        print(request.POST)
         form = self.form_class(request.POST)
+        print(form, '[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[')
         if form.is_valid():
             form.save()
-
-            return HttpResponseRedirect('/Dashboard1/')
+            msg = 'Thank you for the registration'
+            return HttpResponse(msg)
         else:
             msg = 'This account is already exist'
             return HttpResponse(msg)
@@ -313,12 +367,14 @@ class SignupMember(CreateView):
     model = User
     form_class = CustomMemberCreationForm
     template_name = 'signup_member.html'
+    
 
     def post(self, request):
         form = self.form_class(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/Dashboard/')
+            msg = 'Thank you for the registration'
+            return HttpResponse(msg)
         else:
             msg = 'This account is already exist'
             return HttpResponse(msg)
@@ -360,7 +416,7 @@ class Login(View):
                 msg = "invalid login"
                 return HttpResponse(msg)
 
-
+@login_required(login_url="/")
 def SearchBook(request):
     query = None
     results = []
@@ -387,7 +443,7 @@ def SearchBook(request):
 #         return render(request , self.template_name , context , {'query' : query , 'results' : results})
 
 
-
+@login_required(login_url="/")
 def SearchAuthor(request):
     query = None
     results = []
@@ -396,6 +452,7 @@ def SearchAuthor(request):
         results = Author.objects.filter(Q(name__icontains = query))
     return render(request , 'author/search_author.html', {'query' : query , 'results' : results})
 
+@login_required(login_url="/")
 def SearchCategory(request):
     query = None
     results = []

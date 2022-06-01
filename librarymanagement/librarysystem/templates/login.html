@@ -18,11 +18,13 @@
           returnval = false;
       }
       var id_password = document.forms['login']['password'].value;
-      var regPassword =  /^[A-Za-z0-9]\w{7,14}$/
-      if (id_password == "" || !regPassword.test(id_password)) {
-          alert("Length of password between 8 to 14 and should be use alphabatic letter and contains number between 0-9");
-          returnval = false;
+      if (id_password.length <8) {
+        
+        alert("enter valid email");
+    
+        returnval = false;
       }
+      
       return returnval;
   
   }

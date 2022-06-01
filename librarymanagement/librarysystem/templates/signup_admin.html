@@ -1,6 +1,3 @@
-
-
-
 <title>Admin Signup</title>
 
 {% extends 'base1.html' %} {% load static %} {% block content %}
@@ -36,16 +33,17 @@ function validate() {
         returnval = false;
     }
     var id_password1 = document.forms['signupadmin']['password1'].value;
-    var regPassword =  /^[A-Za-z0-9]\w{7,14}$/
-    if (id_password1 == "" || !regPassword.test(id_password1)) {
-        alert("Length of password between 8 to 14 and should be use alphabatic letter and contains number between 0-9");
+    if (id_password1.length <8) {
+        
+        alert("enter valid email");
+    
         returnval = false;
     }
-    var id_password2 = document.forms['signupadmin']['password2'].value;
-    if (id_password2 != id_password1) {
-        alert("Confirm Password should be same as Password");
-        returnval = false;
-    }
+    var id_password2 = document.forms['signupmember']['password2'].value;
+      if (id_password2 != id_password1) {
+          alert("Confirm Password should be same as Password");
+          returnval = false;
+      }
     return returnval;
 
 }
@@ -80,6 +78,7 @@ function validate() {
       </div>
       <br />
       <div id="txtpass">password : {{form.password1}}
+        
         <span class="formerror"></span>
       </div>
       <br />
@@ -97,7 +96,7 @@ function validate() {
       </button>
       <div>
         <h3>Already Have an account?</h3>
-        <a href="http://127.0.0.1:8000/Login/" class="btn btn-secondary"
+        <a href="http://127.0.0.1:8000/Login" class="btn btn-secondary"
           >Login</a
         >
       </div>
