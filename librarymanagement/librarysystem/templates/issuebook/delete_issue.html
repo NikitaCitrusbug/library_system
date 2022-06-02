@@ -1,4 +1,5 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
+{% if user.is_librarian %}
 <h1>IssueBook Delete Page</h1>
 <form method="post">
   {% csrf_token %}
@@ -7,4 +8,7 @@
 
   <input type="submit" value="Confirm" />
 </form>
+{% else %}
+<center><h1>You are not authorized to view this page!!!</h1></center>
+{% endif %}
 {% endblock content %}

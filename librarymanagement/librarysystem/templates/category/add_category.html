@@ -1,4 +1,5 @@
 {% extends 'base2.html' %} {% load static %} {% block content %}
+{% if user.is_librarian %}
 <div class="col-sm-10">
   <h3 class="text-white my-5">Add Category {{request.user.username}}</h3>
   <form action="" method="post">
@@ -10,5 +11,8 @@
     </div>
   </form>
 </div>
+{% else %}
+<center><h1>You are not authorized to view this page!!!</h1></center>
+{% endif %}
 
 {% endblock content %}

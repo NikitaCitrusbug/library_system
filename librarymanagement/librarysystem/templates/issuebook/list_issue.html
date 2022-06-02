@@ -1,6 +1,6 @@
 <title>IssueBook</title>
 {% extends 'base.html' %} {% load static %} {% block content %}
-<h1>IssueBook list page</h1>
+<h1>IssueBook list page {{request.user.username}}</h1>
 {% for IssueBook in object_list %}
 <ul>
   

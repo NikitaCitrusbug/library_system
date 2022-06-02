@@ -3,6 +3,7 @@
 {% load static %}
 
 {% block content %}
+{% if user.is_librarian %}
 <div class="col-sm-10">
     <h3 class="text-white my-5">Admin {{request.user.username}} Dashboard</h3>
     <div class="jumbotron jumbotron-fluid jumbo-color">
@@ -14,7 +15,11 @@
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat sint veritatis natus, maiores aliquid corrupti illum, animi accusantium eos eius cum in rem quasi sequi. Dicta quo ipsam cumque quibusdam dolorum doloremque, illum eveniet obcaecati. Quidem eum repellendus ipsa, impedit modi a. Porro, nemo ipsa blanditiis molestias earum voluptas at nihil libero a necessitatibus non. Molestiae fugit autem vitae consequatur adipisci ullam libero magnam molestias tenetur eligendi expedita ut accusantium placeat porro aperiam sequi pariatur nemo nihil, tempore quos quis esse velit ducimus. Veritatis voluptates nisi tenetur delectus quia dignissimos architecto deserunt odit labore similique enim quisquam fuga, neque dolores ab ipsum quibusdam facilis illum, laboriosam doloremque. Maiores, cupiditate. Pariatur odio illo dolores, hic rerum deserunt temporibus illum itaque quaerat unde porro? Repellat debitis similique temporibus ea maiores, dicta illum perspiciatis quia officia commodi consectetur velit tempora ducimus nesciunt a ullam explicabo. Omnis saepe natus placeat, atque laborum, doloremque deleniti quia sint, alias sunt quas numquam. At hic quibusdam atque ea quod nisi rerum dicta aliquid iure maxime, consectetur velit odio ullam, nesciunt eum amet. Rem totam, vitae eius qui nostrum sapiente necessitatibus voluptas, labore quisquam, minus cumque dolore alias quae cum ullam unde corrupti minima dolor hic modi? Sit sint ratione neque maiores, animi tempore. Suscipit ipsum dolore eos minus distinctio iure nam. Voluptatibus laborum molestiae adipisci soluta repellat magnam dolor debitis. Repudiandae quo libero provident id culpa molestias, ipsum laborum vero molestiae eos quasi et ratione blanditiis reprehenderit nisi commodi omnis ipsa? Nulla illum et sint nobis mollitia!
           </p><br>
         </div>
+        
       </div>
 </div>
 
+{% else %}
+<center><h1>You are not authorized to view this page!!!</h1></center>
+{% endif %}
 {% endblock content %}

@@ -1,4 +1,10 @@
 <title>User Signup</title>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 
 {% extends 'base1.html' %} {% load static %} {% block content %}
 <script type="text/javascript">
@@ -49,7 +55,22 @@
   }
   
   </script>
-    <div class="container" style="background-color: rgb(180, 171, 171) ;">
+
+<div>
+  <center>
+    <h1><span class="badge badge-success">
+      {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    </span></h1>
+
+  </center>
+</div>
+<div class="container" style="background-color: rgb(180, 171, 171) ;">
         <br>
         <center><h1>Registration Form For User</h1></center>
       <form method="POST" style="font-size: 20px" name="signupmember">
@@ -93,5 +114,5 @@
           <br>
         </center>
       </form>
-    </div>
+</div>
     {% endblock content %}

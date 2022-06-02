@@ -1,9 +1,11 @@
 from django.urls import path,include
 from django.views.generic import TemplateView
 from . import views
-from .views import  AddAuthor, BookRetrieve, Home , SignupAdmin , SignupMember , Login , Dashboard , CategoryView, BookView, AddIssue, AuthorView ,AddBook , AddCategory , AddAuthor , AuthorRetrieve , CategoryRetrieve , IssueBookRetrieve , SearchAuthor
+from .views import  AddAuthor, BookRetrieve, Home , SignupAdmin , SignupMember , Login , Dashboard , CategoryView, BookView, AddIssue, AuthorView ,AddBook , AddCategory , AddAuthor , AuthorRetrieve , CategoryRetrieve , IssueBookRetrieve 
 from .models import *
-from django import forms 
+from django import forms
+from django.contrib.auth import views as auth_views 
+
 
 urlpatterns = [
     path('',Home.as_view() , name = "home"),
