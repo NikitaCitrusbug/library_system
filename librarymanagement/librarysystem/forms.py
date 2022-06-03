@@ -8,6 +8,55 @@ from django.forms import CharField, TextInput
 
 
 
+# class CustomUserCreationForm(forms.ModelForm):
+   
+
+#     class Meta():
+#         model = User
+#         fields = ['username', 'first_name', 'last_name','email']
+        
+#     def __init__(self, args, *kwargs):
+#         super(self).__init__(*args, **kwargs)
+
+#     def clean(self):
+#         cleaned_data = super(CustomUserCreationForm, self).clean()
+#         username = cleaned_data.get("username")
+#         first_name = cleaned_data.get("first_name")
+#         last_name = cleaned_data.get("last_name")
+#         email = cleaned_data.get("email")
+#         password = cleaned_data.get("password")
+        
+        
+
+#         if not email :
+#             raise forms.ValidationError(
+#                 "Please add email."
+#             )
+#         if not password :
+#             raise forms.ValidationError(
+#                 "Please add Password."
+#             )
+#         if not last_name :
+#             raise forms.ValidationError(
+#                 "Please add last name."
+#             )
+#         if not first_name :
+#             raise forms.ValidationError(
+#                 "Please add first name."
+#             )
+#         if not username :
+#             raise forms.ValidationError(
+#                 "Please add user name."
+#             )
+#     def save(self, commit=True):
+#         instance = super().save(commit=False)
+
+#         if commit:
+#             instance.save()
+
+#         return instance
+
+
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
@@ -34,12 +83,14 @@ class CustomMemberCreationForm(UserCreationForm):
             user.save()
         return user
 
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=150)
+    password = forms.CharField(max_length=50, widget=forms.PasswordInput)
 
-
-class LoginForm(UserCreationForm):
-    class Meta(UserCreationForm.Meta):
-        model = User
-        fields = ['username' , 'password']
+# class LoginForm(UserCreationForm):
+#     class Meta(UserCreationForm.Meta):
+#         model = User
+#         fields = ['username' , 'password']
 
 
 
@@ -82,12 +133,12 @@ class UpdateCategoryForm(forms.ModelForm):
 class AddAuthorForm(forms.ModelForm):
     class Meta:
         model = Author
-        fields = '__all__'
+        fields = ['name' , 'discription']
 
 class UpdateAuthorForm(forms.ModelForm):
     class Meta:
         model = Author
-        fields = '__all__'
+        fields = ['name' , 'discription']
 
 # class DateInput(forms.DateInput):
 #     input_type = 'date'
@@ -120,4 +171,5 @@ class IssuedBooksForm(forms.ModelForm):
 class UpdateIssueBookForm(forms.ModelForm):
     class Meta:
         model = IssuedBooks
-        fields = '__all__'
+        fields = ['book' , 'user_name','user_email' , 'user_address' , 'return_date' , 'charge_per_day']
+        

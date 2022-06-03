@@ -11,9 +11,12 @@
     <a href="{% url 'authordetail' Author.pk %}"> name </a> : {{Author.name}}
   </li>
   <li>
+    discription : {{Author.discription}}
+  </li>
+  <!-- <li>
     book : {% for auth in Author.book.all %}<br />
     {{auth}} {% endfor %}
-  </li>
+  </li> -->
 
   <button type="button" class="btn btn-info">
     <a href="{% url 'authorupdate' Author.pk %}">Update</a>

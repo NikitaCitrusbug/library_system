@@ -32,6 +32,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # from django.contrib.messages import constants as messages
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth import logout
+from django.contrib.auth.models import auth
 
 
 class Home(View):
@@ -43,8 +45,22 @@ class Home(View):
 
 class Dashboard(LoginRequiredMixin,SuccessMessageMixin, View):
     template_name = 'dashboard.html'
-    login_url = '/'
-    redirect_field_name = 'home'
+    login_url = '/Login'
+    redirect_field_name = 'login'
+
+    def get(self,request):
+        # messages.success(request, 'Thank you for the Login ')
+        # return redirect('/Dashboard/')
+        return render(request, self.template_name)
+
+# @login_required(login_url="/")
+# def dashboard1(request):
+#     return render(request, 'dashboard1.html')
+
+class AdminDashboard(LoginRequiredMixin,SuccessMessageMixin, View):
+    template_name = 'dashboard1.html'
+    login_url = '/Login'
+    redirect_field_name = 'login'
 
     def get(self,request):
         # messages.success(request, 'Thank you for the Login ')
@@ -55,23 +71,23 @@ class Dashboard(LoginRequiredMixin,SuccessMessageMixin, View):
 class BookView(LoginRequiredMixin, ListView):
     model = Book
     template_name = 'book/book.html'
-    login_url = '/'
-    redirect_field_name = 'home'
+    login_url = 'Login'
+    redirect_field_name = 'login'
 
 
 class BookRetrieve(LoginRequiredMixin, ListView):
     model = Book
     template_name = 'book/book_list.html'
-    login_url = '/'
-    redirect_field_name = 'home'
+    login_url = '/Login'
+    redirect_field_name = 'login'
 
 
 class AddBook(LoginRequiredMixin, CreateView):
     model = Book
     form_class = AddForm
     template_name = 'book/add_book.html'
-    login_url = '/'
-    redirect_field_name = 'home'
+    login_url = '/Login'
+    redirect_field_name = 'login'
 
     def post(self, request):
         data = request.POST.copy()
@@ -88,14 +104,14 @@ class AddBook(LoginRequiredMixin, CreateView):
             # print('msg')
             return redirect('bookretrieve')
         else:
-            return HttpResponse('error')
+            return redirect('login')
 
 
 class BookDetail(LoginRequiredMixin, DetailView):
     model = Book
     template_name = 'book/details_book.html'
-    login_url = '/'
-    redirect_field_name = 'home'
+    login_url = '/Login'
+    redirect_field_name = 'login'
 
     def get(self, request, pk):
         context = {}
@@ -109,11 +125,11 @@ class BookUpdate(LoginRequiredMixin, UpdateView):
     model = Book
     form_class = UpdateBookForm
     template_name = 'book/update_book.html'
-    login_url = '/'
-    redirect_field_name = 'home'
+    login_url = '/Login'
+    redirect_field_name = 'login'
 
     def get_success_url(self):
-        return reverse('home')
+        return reverse('bookretrieve')
 
     # def post(self,request , pk):
     #     form = self.form_class(request.POST)
@@ -127,38 +143,38 @@ class BookUpdate(LoginRequiredMixin, UpdateView):
 class BookDelete(LoginRequiredMixin, DeleteView):
     model = Book
     template_name = 'book/delete_book.html'
-    success_url = "/Dashboard1/"
-    login_url = '/'
-    redirect_field_name = 'home'
+    success_url = "/AdminDashboard/"
+    login_url = '/Login'
+    redirect_field_name = 'login'
 
 
 class CategoryView(LoginRequiredMixin, ListView):
     model = Category
     template_name = 'category/Category.html'
-    login_url = '/'
-    redirect_field_name = 'home'
+    login_url = 'Login'
+    redirect_field_name = 'login'
 
 
 class CategoryRetrieve(LoginRequiredMixin, ListView):
     model = Category
     template_name = 'category/list_category.html'
-    login_url = '/'
-    redirect_field_name = 'home'
+    login_url = '/Login'
+    redirect_field_name = 'login'
 
 
 class CategoryDetail(LoginRequiredMixin, DetailView):
     model = Category
     template_name = 'category/details_category.html'
-    login_url = '/'
-    redirect_field_name = 'home'
+    login_url = '/Login'
+    redirect_field_name = 'login'
 
 
 class AddCategory(LoginRequiredMixin, CreateView):
     model = Category
     form_class = AddCategoryForm
     template_name = 'category/add_category.html'
-    login_url = '/'
-    redirect_field_name = 'home'
+    login_url = '/Login'
+    redirect_field_name = 'login'
 
     def post(self, request):
         form = self.form_class(request.POST)
@@ -166,18 +182,18 @@ class AddCategory(LoginRequiredMixin, CreateView):
             form.save()
             return redirect('categoryretrieve')
         else:
-            return HttpResponse('error')
+            return redirect('login')
 
 
 class CategoryUpdate(LoginRequiredMixin, UpdateView):
     model = Category
     form_class = UpdateCategoryForm
     template_name = 'category/update_category.html'
-    login_url = '/'
-    redirect_field_name = 'home'
+    login_url = '/Login'
+    redirect_field_name = 'login'
 
     def get_success_url(self):
-        return reverse('home')
+        return reverse('categoryretrieve')
     # def post(self , request , pk):
     #     form = self.form_class(request.POST)
     #     if form.is_valid():
@@ -190,30 +206,30 @@ class CategoryUpdate(LoginRequiredMixin, UpdateView):
 class CategoryDelete(LoginRequiredMixin, DeleteView):
     model = Category
     template_name = 'category/delete_category.html'
-    success_url = "/Dashboard1/"
-    login_url = '/'
-    redirect_field_name = 'home'
+    success_url = "/AdminDashboard/"
+    login_url = '/Login'
+    redirect_field_name = 'login'
 
 
 class AuthorView(LoginRequiredMixin, ListView):
     model = Author
     template_name = 'author/author.html'
-    login_url = '/'
-    redirect_field_name = 'home'
+    login_url = '/Login'
+    redirect_field_name = 'login'
 
 
 class AuthorRetrieve(LoginRequiredMixin, ListView):
     model = Author
     template_name = 'author/list_author.html'
-    login_url = '/'
-    redirect_field_name = 'home'
+    login_url = '/Login'
+    redirect_field_name = 'login'
 
 
 class AuthorDetail(LoginRequiredMixin, DetailView):
     model = Author
     template_name = 'author/details_author.html'
-    login_url = '/'
-    redirect_field_name = 'home'
+    login_url = '/Login'
+    redirect_field_name = 'login'
 
     def get(self, request, pk):
         context = {}
@@ -227,8 +243,8 @@ class AddAuthor(LoginRequiredMixin, CreateView):
     model = Author
     form_class = AddAuthorForm
     template_name = 'author/add_author.html'
-    login_url = '/'
-    redirect_field_name = 'home'
+    login_url = '/Login'
+    redirect_field_name = 'login'
 
     def post(self, request):
         form = self.form_class(request.POST)
@@ -236,18 +252,18 @@ class AddAuthor(LoginRequiredMixin, CreateView):
             form.save()
             return redirect('authorretrieve')
         else:
-            return HttpResponse('error')
+            return redirect('login')
 
 
 class AuthorUpdate(LoginRequiredMixin, UpdateView):
     model = Author
     form_class = UpdateAuthorForm
     template_name = 'author/update_author.html'
-    login_url = '/'
-    redirect_field_name = 'home'
+    login_url = '/Login'
+    redirect_field_name = 'login'
 
     def get_success_url(self):
-        return reverse('home')
+        return reverse('authorretrieve')
 
     # def post(self , request , pk):
     #     form = self.form_class(request.POST)
@@ -261,17 +277,17 @@ class AuthorUpdate(LoginRequiredMixin, UpdateView):
 class AuthorDelete(LoginRequiredMixin, DeleteView):
     model = Author
     template_name = 'author/delete_author.html'
-    success_url = "/Dashboard1/"
-    login_url = '/'
-    redirect_field_name = 'home'
+    success_url = "/AdminDashboard/"
+    login_url = '/Login'
+    redirect_field_name = 'login'
 
 
 class AddIssue(LoginRequiredMixin, CreateView):
     model = IssuedBooks
     form_class = IssuedBooksForm
     template_name = 'issuebook/issue.html'
-    login_url = '/'
-    redirect_field_name = 'home'
+    login_url = '/Login'
+    redirect_field_name = 'login'
 
     # def get(self ,request , pk):
     #         context = {}
@@ -285,14 +301,14 @@ class AddIssue(LoginRequiredMixin, CreateView):
             form.save()
             return redirect('issueretrieve')
         else:
-            return HttpResponse('error')
+            return redirect('login')
 
 
 class IssueBookRetrieve(LoginRequiredMixin, ListView):
     model = IssuedBooks
     template_name = 'issuebook/list_issue.html'
-    login_url = '/'
-    redirect_field_name = 'home'
+    login_url = '/Login'
+    redirect_field_name = 'login'
 
     # permission_classes = [isAuthenticated]
     # queryset = Post.objects.all()
@@ -308,8 +324,8 @@ class IssueBookRetrieve(LoginRequiredMixin, ListView):
 class IssueBookDetail(LoginRequiredMixin, DetailView):
     model = IssuedBooks
     template_name = 'issuebook/details_issue.html'
-    login_url = '/'
-    redirect_field_name = 'home'
+    login_url = '/Login'
+    redirect_field_name = 'login'
 
     def get(self, request, pk):
         context = {}
@@ -321,19 +337,19 @@ class IssueBookUpdate(LoginRequiredMixin, UpdateView):
     model = IssuedBooks
     form_class = UpdateIssueBookForm
     template_name = 'issuebook/update_issue.html'
-    login_url = '/'
-    redirect_field_name = 'home'
+    login_url = '/Login'
+    redirect_field_name = 'login'
 
     def get_success_url(self):
-        return reverse('home')
+        return reverse('issueretrieve')
 
 
 class IssueBookDelete(LoginRequiredMixin, DeleteView):
     model = IssuedBooks
     template_name = 'issuebook/delete_issue.html'
     success_url = "/Dashboard/"
-    login_url = '/'
-    redirect_field_name = 'home'
+    login_url = '/Login'
+    redirect_field_name = 'login'
 
 # class Contact(View):
 #     template_name = 'contact.html'
@@ -341,15 +357,35 @@ class IssueBookDelete(LoginRequiredMixin, DeleteView):
 # def contact(request):
 #     return render(request, 'contact.html')
 
+# def logout_view(request):
+#     logout(request)
+    
+#     return HttpResponseRedirect('/Login')
 
-def logout(request):
-    return HttpResponseRedirect('/')
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        return HttpResponseRedirect('/Login')
 
 
-@login_required(login_url="/")
-def dashboard1(request):
-    return render(request, 'dashboard1.html')
 
+# class SignupAdmin(CreateView):
+#     """View to create User"""
+
+#     model = User
+#     form_class = CustomUserCreationForm
+#     template_name = 'signup_admin.html'
+#     # permission_required = ("customadmin.add_user",)
+
+#     def get_form_kwargs(self):
+#         kwargs = super().get_form_kwargs()
+#         # kwargs["user"] = self.request.user
+
+#         return kwargs
+
+#     def get_success_url(self):
+#         # opts = self.model._meta
+#         return redirect('/Adminsignup')
 
 class SignupAdmin(SuccessMessageMixin, CreateView):
     model = User
@@ -363,6 +399,10 @@ class SignupAdmin(SuccessMessageMixin, CreateView):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
+            first_name = form.cleaned_data.get('first_name')
+            last_name = form.cleaned_data.get('last_name')
+            email = form.cleaned_data.get('email')
+            password = form.cleaned_data.get('password')
 
             messages.success(
                 request, 'Thank you for the registration   ' + username)
@@ -372,9 +412,9 @@ class SignupAdmin(SuccessMessageMixin, CreateView):
             # msg = 'Thank you for the registration'
             # return HttpResponse(msg)
         else:
-            messages.success(request, 'PLEASE TRY AGAIN...')
+            messages.success(request, 'This account is already exist...')
 
-            return redirect('/Usersignup')
+            return redirect('/Adminsignup')
 
 
 class SignupMember(SuccessMessageMixin, CreateView):
@@ -397,55 +437,133 @@ class SignupMember(SuccessMessageMixin, CreateView):
             return redirect('/Usersignup')
 
 
-
-
-class Login(SuccessMessageMixin, View):
+class Login(SuccessMessageMixin ,View):
     model = User
+    template_name = 'login.html'   
     form_class = LoginForm
-    template_name = 'login.html'
 
     def get(self, request):
-        form = self.form_class(request.POST)
+        form = self.form_class()
         return render(request, self.template_name, {'form': form})
 
     def post(self, request):
-        username = request.POST['username']
-        passw = request.POST['password']
-    # print(username,passw)
-        pwd = User.objects.get(username=username)
-    # a = User.objects.all()
-        print('data', pwd)
-        password = pwd.password
-        valid = check_password(passw, password)
-
-        # if not valid:
-        #     return HttpResponse("incorrect password")
-        # else:
-        if valid:
-            user = User.objects.get(username=username)
-            
-
-            if user.is_librarian == True:
-                    login(request, user)
-                    return HttpResponseRedirect('/Dashboard1/')
-            else:
-                    login(request, user)
+        form = self.form_class(request.POST)
+        
+        
+        if request.method == "POST" and form.is_valid():
+            uname = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            una = request.POST['username']
+            ps = request.POST['password']
+            user =  auth.authenticate(username=uname,password=password)
+            if user is not None:
+                if user.is_librarian == True:
+                    auth.login(request,user)
+                    return HttpResponseRedirect('/AdminDashboard/')
+                else:
+                    auth.login(request,user)
                     return HttpResponseRedirect('/Dashboard/')
-            
+                
+            else:
+                messages.success(request, 'PLEASE TRY AGAIN...')
+                return redirect('/Login')
+                
+                
         else:
-            messages.success(request, 'PLEASE TRY AGAIN...')
+            messages.success(request, 'TRY AGAIN...')
             return redirect('/Login')
 
 
 
-@login_required(login_url="/")
-def SearchBook(request):
-    query = None
-    results = []
-    if request.method == "GET":
-        query = request.GET.get("search")
-        results = Book.objects.filter(Q(name__icontains=query))
-    return render(request, 'book/search_book.html', {'query': query, 'results': results})
+
+
+
+# class Login(SuccessMessageMixin, View):
+#     model = User
+#     form_class = LoginForm
+#     template_name = 'login.html'
+
+#     def get(self, request):
+#         form = self.form_class(request.POST)
+#         return render(request, self.template_name, {'form': form})
+
+#     def post(self, request):
+#         username = request.POST['username']
+#         passw = request.POST['password']
+#     # print(username,passw)
+#         pwd = User.objects.get(username=username)
+#     # a = User.objects.all()
+#         print('data', pwd)
+#         password = pwd.password
+#         valid = check_password(passw, password)
+
+#         if valid:
+#             user = User.objects.get(username=username)
+            
+
+#             if user.is_librarian == True:
+#                     login(request, user)
+#                     return HttpResponseRedirect('/AdminDashboard/')
+#             else:
+#                     login(request, user)
+#                     return HttpResponseRedirect('/Dashboard/')
+            
+#         else:
+#             messages.success(request, 'PLEASE TRY AGAIN...')
+#             return redirect('/Login')
+
+
+class SearchBook(LoginRequiredMixin, TemplateView):
+    model = Book
+    template_name = 'book/search_book.html'
+    login_url = '/Login'
+    redirect_field_name = 'login'
+
+    def get(self ,request):
+        query = None
+        results = []
+        if request.method == "GET":
+            query = request.GET.get("search")
+            results = Book.objects.filter(Q(name__icontains=query))
+        return render(request, self.template_name, {'query': query, 'results': results})
+
+
+class SearchAuthor(LoginRequiredMixin, TemplateView):
+    model = Book
+    template_name = 'author/search_author.html'
+    login_url = '/Login'
+    redirect_field_name = 'login'
+
+    def get(self ,request):
+        query = None
+        results = []
+        if request.method == "GET":
+            query = request.GET.get("search")
+            results = Author.objects.filter(Q(name__icontains=query))
+        return render(request, self.template_name, {'query': query, 'results': results})
+
+class SearchCategory(LoginRequiredMixin, TemplateView):
+    model = Category
+    template_name = 'category/search_category.html'
+    login_url = '/Login'
+    redirect_field_name = 'login'
+
+    def get(self ,request):
+        query = None
+        results = []
+        if request.method == "GET":
+            query = request.GET.get("search")
+            results = Category.objects.filter(Q(name__icontains=query))
+        return render(request, self.template_name, {'query': query, 'results': results})
+
+# @login_required(login_url="/")
+# def SearchBook(request):
+#     query = None
+#     results = []
+#     if request.method == "GET":
+#         query = request.GET.get("search")
+#         results = Book.objects.filter(Q(name__icontains=query))
+#     return render(request, 'book/search_book.html', {'query': query, 'results': results})
 
 
 # class SearchAuthor(View):
@@ -465,21 +583,21 @@ def SearchBook(request):
 #         return render(request , self.template_name , context , {'query' : query , 'results' : results})
 
 
-@login_required(login_url="/")
-def SearchAuthor(request):
-    query = None
-    results = []
-    if request.method == "GET":
-        query = request.GET.get("search")
-        results = Author.objects.filter(Q(name__icontains=query))
-    return render(request, 'author/search_author.html', {'query': query, 'results': results})
+# @login_required(login_url="/")
+# def SearchAuthor(request):
+#     query = None
+#     results = []
+#     if request.method == "GET":
+#         query = request.GET.get("search")
+#         results = Author.objects.filter(Q(name__icontains=query))
+#     return render(request, 'author/search_author.html', {'query': query, 'results': results})
 
 
-@login_required(login_url="/")
-def SearchCategory(request):
-    query = None
-    results = []
-    if request.method == "GET":
-        query = request.GET.get("search")
-        results = Category.objects.filter(Q(name__icontains=query))
-    return render(request, 'category/search_category.html', {'query': query, 'results': results})
+# @login_required(login_url="/")
+# def SearchCategory(request):
+#     query = None
+#     results = []
+#     if request.method == "GET":
+#         query = request.GET.get("search")
+#         results = Category.objects.filter(Q(name__icontains=query))
+#     return render(request, 'category/search_category.html', {'query': query, 'results': results})

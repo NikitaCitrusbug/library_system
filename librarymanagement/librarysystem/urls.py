@@ -1,7 +1,7 @@
 from django.urls import path,include
 from django.views.generic import TemplateView
 from . import views
-from .views import  AddAuthor, BookRetrieve, Home , SignupAdmin , SignupMember , Login , Dashboard , CategoryView, BookView, AddIssue, AuthorView ,AddBook , AddCategory , AddAuthor , AuthorRetrieve , CategoryRetrieve , IssueBookRetrieve 
+from .views import  AddAuthor, BookRetrieve, Home, LogoutView , SignupAdmin , SignupMember , Login , Dashboard , CategoryView, BookView, AddIssue, AuthorView ,AddBook , AddCategory , AddAuthor , AuthorRetrieve , CategoryRetrieve , IssueBookRetrieve ,AdminDashboard
 from .models import *
 from django import forms
 from django.contrib.auth import views as auth_views 
@@ -14,6 +14,8 @@ urlpatterns = [
     path('Usersignup',SignupMember.as_view(), name = 'membersignup'),
     path('Login',Login.as_view(),name='login'),
     path('Dashboard/',Dashboard.as_view() , name = "dashboard"),
+    path('AdminDashboard/',AdminDashboard.as_view() , name = "admindashboard"),
+    path('Logout/',LogoutView.as_view() , name = "logout"),
     
     path('Issuedbook/',AddIssue.as_view() , name = "issuedbook"),
     path('Author/',AuthorView.as_view() , name = "author"),
@@ -50,15 +52,20 @@ urlpatterns = [
     path('<int:pk>/issuedelete/', views.IssueBookDelete.as_view(), name = 'issuebookdelete'),
 
 
-    path('Searchbook/', views.SearchBook, name = 'book_search'),
-    path('Searchauthor/', views.SearchAuthor, name = 'author_search'),
-    path('Searchcategory/', views.SearchCategory, name = 'category_search'),
+    path('Searchbook/', views.SearchBook.as_view(), name = 'book_search'),
+    path('Searchauthor/', views.SearchAuthor.as_view(), name = 'author_search'),
+    path('Searchcategory/', views.SearchCategory.as_view(), name = 'category_search'),
+
+
+    # # path('Searchbook/', views.SearchBook, name = 'book_search'),
+    # path('Searchauthor/', views.SearchAuthor, name = 'author_search'),
+    # path('Searchcategory/', views.SearchCategory, name = 'category_search'),
  
 
     
     
-    path('Dashboard1/' ,views.dashboard1, name = 'dashboard1'),
-    path('Logout/',views.logout, name = 'logout'),
+    # path('Dashboard1/' ,views.dashboard1, name = 'dashboard1'),
+    # path('Logout/',views.logout_view, name = 'logout'),
     # path('ContactUs/',views.contact, name = 'contactus'),
     
     
